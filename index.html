@@ -1,36 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Islamic Cultural Group</title>
+    <title>Södertörns Muslimska Kultur Förening</title>
     <link rel="stylesheet" href="style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <header class="hero">
-        <h1 class="arabic-title">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</h1>
-        <h2 class="main-title">Islamic Cultural Harmony Group</h2>
-        <p class="subtitle">A community rooted in unity, faith, culture, and timeless Islamic heritage.</p>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-circle">SMKF</div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#hem" class="nav-link">Hem</a></li>
+                <li><a href="#om-oss" class="nav-link">Om oss</a></li>
+                <li><a href="#evenemang" class="nav-link">Evenemang</a></li>
+                <li><a href="#varderingar" class="nav-link">Värderingar</a></li>
+                <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-        <a href="register.html" class="btn">Register for Event</a>
+    <!-- Hero Section -->
+    <header class="hero" id="hem">
+        <div class="hero-content">
+            <h1 class="arabic-title">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</h1>
+            <h2 class="main-title">Södertörns Muslimska Kultur Förening</h2>
+            <p class="subtitle">En gemenskap grundad i enighet, tro och kulturellt utbyte</p>
+            <!-- <a href="register.html" class="btn">Anmäl intresse</a> -->
+        </div>
     </header>
 
-    <section class="about">
-        <h3>About Our Group</h3>
-        <p>
-            We welcome you to a cultural gathering dedicated to spreading Islamic values, 
-            strengthening our bonds, and celebrating spiritual togetherness.
-        </p>
+    <!-- Om oss Section -->
+    <section class="about" id="om-oss">
+        <div class="container">
+            <h3>Välkommen</h3>
+            <p>
+                Vi är en ny muslimsk kulturförening i Södertörn som arbetar för att 
+                bygga en stark gemenskap och bevara våra islamiska värderingar. 
+                Genom kulturella aktiviteter och sociala sammankomster skapar vi 
+                en plattform för samhörighet och ömsesidig förståelse.
+            </p>
+        </div>
     </section>
 
-    <section class="contact">
-        <h3>Contact Information</h3>
-        <p><strong>WhatsApp:</strong> +46 700 000 000</p>
-        <p><strong>Email:</strong> info@islamicculturalgroup.com</p>
-        <p><strong>Location:</strong> Stockholm, Sweden</p>
+    <!-- Event Section -->
+    <section class="event-section" id="evenemang">
+        <div class="container">
+            <div class="event-invitation">
+                <div class="event-header">
+                    <h2 class="arabic-subtitle">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</h2>
+                    <h3 class="event-title">Kulturell Sammankomst</h3>
+                    <p class="event-tagline">Ett tillfälle för gemenskap och dialog</p>
+                </div>
+                
+                <div class="event-details">
+                    <div class="event-info-box">
+                        <div class="info-item">
+                            <span class="info-icon">📅</span>
+                            <div>
+                                <strong>Datum</strong>
+                                <p>26 december 2025</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">🕐</span>
+                            <div>
+                                <strong>Tid</strong>
+                                <p>16:00</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">📍</span>
+                            <div>
+                                <strong>Plats</strong>
+                                <p>Södertörn, Stockholm</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="event-description">
+                        <h4>Om evenemanget</h4>
+                        <p>
+                            Vi bjuder in alla medlemmar och intresserade till vår första kulturella sammankomst. 
+                            Detta är ett utmärkt tillfälle att träffa andra medlemmar, diskutera våra aktiviteter 
+                            och bygga starkare band inom vår gemenskap.
+                        </p>
+                        <p class="event-highlight">
+                            Eventet inkluderar: Presentation av föreningen • Öppen diskussion • 
+                            Fika och mingel • Framtidsplaner
+                        </p>
+                    </div>
+
+                    <div class="event-cta">
+                        <a href="register.html" class="btn btn-primary">Anmäl dig nu</a>
+                        <p class="cta-note">Begränsat antal platser – anmäl dig idag!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- Våra värderingar -->
+    <section class="values" id="varderingar">
+        <div class="container">
+            <h3>Våra värderingar</h3>
+            <div class="values-grid">
+                <div class="value-card">
+                    <h4>Gemenskap</h4>
+                    <p>Vi skapar en välkomnande miljö där alla känner sig hemma</p>
+                </div>
+                <div class="value-card">
+                    <h4>Kultur</h4>
+                    <p>Vi bevarar och delar vår rika islamiska kulturarv</p>
+                </div>
+                <div class="value-card">
+                    <h4>Kunskap</h4>
+                    <p>Vi främjar lärande och personlig utveckling</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt Section -->
+    <section class="contact" id="kontakt">
+        <div class="container">
+            <h3>Kontakta oss</h3>
+            <p>Har du frågor eller vill veta mer om vår förening? Hör gärna av dig!</p>
+            <div class="contact-info">
+                <p><strong>Telefon:</strong> +46 700 000 000</p>
+                <p><strong>E-post:</strong> info@sodertonmuslim.se</p>
+                <p><strong>Plats:</strong> Södertörn, Stockholm</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Södertörns Muslimska Kultur Förening. Alla rättigheter förbehållna.</p>
+            <p class="footer-arabic">السلام عليكم ورحمة الله وبركاته</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

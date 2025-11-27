@@ -1,35 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Registration</title>
+    <title>Anmälan - Södertörns Muslimska Kultur Förening</title>
     <link rel="stylesheet" href="style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-circle">SMKF</div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html#hem" class="nav-link">Hem</a></li>
+                <li><a href="index.html#om-oss" class="nav-link">Om oss</a></li>
+                <li><a href="index.html#evenemang" class="nav-link">Evenemang</a></li>
+                <li><a href="index.html#kontakt" class="nav-link">Kontakt</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
     <header class="hero small">
-        <h1 class="arabic-title">السلام عليكم ورحمة الله وبركاته</h1>
-        <h2 class="main-title">Event Registration</h2>
-        <p class="subtitle">Please fill in the details below to confirm your participation.</p>
+        <div class="hero-content">
+            <h1 class="arabic-title">السلام عليكم ورحمة الله وبركاته</h1>
+            <h2 class="main-title">Evenemangsanmälan</h2>
+            <p class="subtitle">Fyll i dina uppgifter nedan för att bekräfta ditt deltagande</p>
+        </div>
     </header>
 
     <section class="form-section">
-        <form id="eventForm">
-            <label>Full Name*</label>
-            <input type="text" name="name" required />
+        <div class="form-container">
+            <h3>Anmälningsformulär</h3>
+            <p class="form-intro">Vi ser fram emot att välkomna dig till vår kulturella sammankomst!</p>
+            
+            <form id="eventForm">
+                <label>Fullständigt namn *</label>
+                <input type="text" name="name" placeholder="Ditt fullständiga namn" required />
 
-            <label>Email</label>
-            <input type="email" name="email" />
+                <label>E-postadress</label>
+                <input type="email" name="email" placeholder="din@epost.se" />
 
-            <label>Phone Number*</label>
-            <input type="text" name="phone" required />
+                <label>Telefonnummer *</label>
+                <input type="tel" name="phone" placeholder="+46 70 123 45 67" required />
 
-            <button type="submit" class="btn">Submit Registration</button>
-        </form>
+                <label>Antal deltagare</label>
+                <input type="number" name="attendees" placeholder="1" min="1" value="1" />
 
-        <p id="successMessage" class="success-message"></p>
+                <label>Meddelande (valfritt)</label>
+                <textarea name="message" rows="4" placeholder="Eventuella frågor eller önskemål..."></textarea>
+
+                <button type="submit" class="btn btn-primary">Skicka anmälan</button>
+            </form>
+
+            <div id="successMessage" class="success-message">
+                <strong>Alhamdulillah! Din anmälan har mottagits. ✓</strong>
+                <p>Vi ser fram emot att träffa dig!</p>
+            </div>
+        </div>
     </section>
 
     <script src="script.js"></script>
