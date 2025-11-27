@@ -32,27 +32,71 @@ function doPost(e) {
     // Parse the incoming data
     var data = JSON.parse(e.postData.contents);
     
+    // Server-side validation - Required fields
+    if (!data.name || data.name.trim() === '') {
+      return ContentService.createTextOutput(JSON.stringify({
+        'result': 'error',
+        'message': 'Namn är obligatoriskt'
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    if (!data.phone || data.phone.trim() === '') {
+      return ContentService.createTextOutput(JSON.stringify({
+        'result': 'error',
+        'message': 'Telefonnummer är obligatoriskt'
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // Validate email format if provided
+    if (data.email && data.email !== 'Ej angivet') {
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(data.email)) {
+        return ContentService.createTextOutput(JSON.stringify({
+          'result': 'error',
+          'message': 'Ogiltig e-postadress'
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+    
+    // Validate phone number (basic Swedish format)
+    var phoneRegex = /^[\+]?[0-9\s\-\(\)]{6,}$/;
+    if (!phoneRegex.test(data.phone)) {
+      return ContentService.createTextOutput(JSON.stringify({
+        'result': 'error',
+        'message': 'Ogiltigt telefonnummer'
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // Validate number of attendees
+    var attendees = parseInt(data.attendees);
+    if (isNaN(attendees) || attendees < 1 || attendees > 10) {
+      return ContentService.createTextOutput(JSON.stringify({
+        'result': 'error',
+        'message': 'Antal deltagare måste vara mellan 1 och 10'
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
     // Append data to the sheet
     sheet.appendRow([
-      data.name,
+      data.name.trim(),
       data.email,
-      data.phone,
+      data.phone.trim(),
       data.attendees,
-      data.message,
+      data.message || 'Inget meddelande',
       data.timestamp
     ]);
     
     // Return success response
     return ContentService.createTextOutput(JSON.stringify({
       'result': 'success',
-      'message': 'Registration received'
+      'message': 'Anmälan mottagen'
     })).setMimeType(ContentService.MimeType.JSON);
     
   } catch (error) {
     // Return error response
     return ContentService.createTextOutput(JSON.stringify({
       'result': 'error',
-      'message': error.toString()
+      'message': 'Ett fel uppstod: ' + error.toString()
     })).setMimeType(ContentService.MimeType.JSON);
   }
 }
@@ -61,6 +105,14 @@ function doGet(e) {
   return ContentService.createTextOutput("App is running!");
 }
 ```
+
+**Key validation features:**
+- ✅ Required fields validation (name, phone)
+- ✅ Email format validation
+- ✅ Phone number format validation
+- ✅ Number of attendees range check (1-10)
+- ✅ Data sanitization (trim whitespace)
+- ✅ Error messages in Swedish
 
 ### Step 3: Deploy the Script
 
@@ -71,53 +123,72 @@ function doGet(e) {
    - **Description:** SMKF Event Registration Form
    - **Execute as:** Me (your email)
    - **Who has access:** Anyone
-5. Click **Deploy**
-6. Click **Authorize access**
-7. Choose your Google account
-8. Click **Advanced** → **Go to [Your Project Name] (unsafe)**
-9. Click **Allow**
-10. **Copy the Web App URL** - it should look like:
-    `https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec`
+## Optional: Email Notifications
 
-### Step 4: Update Your Website
+If you want to receive email notifications for new registrations, update your `doPost` function:
 
-1. Open `script.js` in your project
-2. Find this line:
-   ```javascript
-   const scriptURL = "YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE";
-   ```
-3. Replace it with your actual Web App URL:
-   ```javascript
-   const scriptURL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
-   ```
-4. Save the file
+```javascript
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    
+    // Validation (same as above)
+    if (!data.name || data.name.trim() === '') {
+      return ContentService.createTextOutput(JSON.stringify({
+        'result': 'error',
+        'message': 'Namn är obligatoriskt'
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    if (!data.phone || data.phone.trim() === '') {
+      return ContentService.createTextOutput(JSON.stringify({
+        'result': 'error',
+        'message': 'Telefonnummer är obligatoriskt'
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // Append data
+    sheet.appendRow([
+      data.name.trim(),
+      data.email,
+      data.phone.trim(),
+      data.attendees,
+      data.message || 'Inget meddelande',
+      data.timestamp
+    ]);
+    
+    // Send email notification
+    MailApp.sendEmail({
+      to: "your-email@example.com", // Change this to your email
+      subject: "✅ Ny anmälan till SMKF evenemang",
+      body: `Assalamu Alaikum,\n\nNy anmälan mottagen:\n\n` +
+            `📝 Namn: ${data.name}\n` +
+            `📧 E-post: ${data.email}\n` +
+            `📱 Telefon: ${data.phone}\n` +
+            `👥 Antal deltagare: ${data.attendees}\n` +
+            `💬 Meddelande: ${data.message}\n` +
+            `⏰ Tidpunkt: ${data.timestamp}\n\n` +
+            `---\nSödertörns Muslimska Kultur Förening`
+    });
+    
+    return ContentService.createTextOutput(JSON.stringify({
+      'result': 'success',
+      'message': 'Anmälan mottagen'
+    })).setMimeType(ContentService.MimeType.JSON);
+    
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      'result': 'error',
+      'message': 'Ett fel uppstod: ' + error.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+```
 
-### Step 5: Test the Form
-
-1. Open your website and go to the registration page
-2. Fill out the form with test data
-3. Submit the form
-4. Check your Google Sheet - the data should appear in a new row!
-
-## Security Notes
-
-- The current setup allows anyone to submit data (required for public forms)
-- Google Sheets stores all submissions with timestamps
-- You can add data validation in Google Sheets to prevent duplicates
-- Consider adding CAPTCHA if you experience spam
-
-## Troubleshooting
-
-**Form doesn't submit:**
-- Check that you copied the correct Web App URL
-- Make sure you deployed the script with "Anyone" access
-- Check browser console for errors (F12)
-
-**Data not appearing in sheet:**
-- Verify column headers match exactly
-- Check the Apps Script execution logs (View → Executions)
-- Make sure the sheet is not protected
-
+**Remember to:**
+- Replace `"your-email@example.com"` with your actual email address
+- The email will be sent from your Google account
 **Multiple sheets:**
 - The script writes to the active sheet
 - Make sure your registration sheet is the first/active sheet

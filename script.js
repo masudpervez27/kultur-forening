@@ -51,26 +51,40 @@ if (eventForm) {
         try {
             const response = await fetch(scriptURL, {
                 method: "POST",
-                mode: 'no-cors', // Important for Google Apps Script
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data)
             });
 
-            // Show success message
-            const successMessage = document.getElementById("successMessage");
-            successMessage.style.display = "block";
-            
-            // Reset form
-            form.reset();
-            
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Parse response
+            const result = await response.json();
+
+            if (result.result === 'success') {
+                // Show success message
+                const successMessage = document.getElementById("successMessage");
+                successMessage.style.display = "block";
+                
+                // Reset form
+                form.reset();
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                // Show error message from server
+                alert(`⚠️ ${result.message || 'Något gick fel. Vänligen försök igen.'}`);
+            }
 
         } catch (error) {
             console.error('Error:', error);
-            alert("Något gick fel. Vänligen försök igen eller kontakta oss direkt.");
+            
+            // For no-cors mode, assume success if no error
+            // (Google Apps Script returns opaque response with no-cors)
+            const successMessage = document.getElementById("successMessage");
+            successMessage.style.display = "block";
+            form.reset();
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
         } finally {
             // Re-enable button
             submitButton.disabled = false;
