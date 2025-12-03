@@ -47,7 +47,7 @@ if (eventForm) {
 
         // Replace this URL with your Google Apps Script Web App URL
         //const scriptURL = "YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE";
-        const scriptURL = "https://script.google.com/macros/s/AKfycbwjgWlUKwrSyjencqxz5B2xVuvWKtSY_mdHOChYpJhFVm-0_-ztkw637qm7f5dtZzRO/exec"
+        const scriptURL = "https://script.google.com/macros/s/AKfycbz2MX_ffN2nXgFE3DB-IfAQp8ihPM556E9ty6oiuDV8OlKsPfI-Z9jx9xMMD6_2tw8/exec"
 
         try {
             const response = await fetch(scriptURL, {
