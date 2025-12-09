@@ -54,4 +54,79 @@ Designen följer moderna skandinaviska designprinciper med:
 
 ---
 
+# ✅ How the system works (important)
+1. Your website (HTML/JS/CSS)
+
+Runs on GitHub Pages servers, not on your computer.
+
+2. When a user submits the form
+
+Their browser sends the POST request directly to:
+
+https://script.google.com/macros/s/.../exec
+
+3. Google Apps Script Web App (the backend)
+
+Runs entirely on Google’s servers, not on your computer.
+
+4. Google Sheets (the database)
+
+Also lives on Google’s servers.
+
+## 🧠 Your computer is NOT part of the chain
+
+Here is the real flow:
+
+User → GitHub Pages → Google Apps Script → Google Sheet
+
+
+Your computer plays zero role in the process.
+It is simply where you wrote the code.
+
+You could:
+
+Shut down your laptop
+
+Travel abroad
+
+Lose electricity
+
+Never open your browser
+
+…and the system will still run perfectly 24/7.
+
+## The script logic flow
+
+So the logic flow is:
+
+Receive request →
+  Validate inputs →
+    Check if email exists →
+      IF exists:
+        return error JSON
+      ELSE:
+        appendRow()
+        return success JSON
+
+✔️ appendRow() only executes when:
+
+email is NOT found
+
+and all other validations passed
+
+❌ appendRow() is skipped when:
+
+email exists
+
+name missing
+
+invalid email
+
+invalid phone
+
+invalid number of attendees
+
+JSON parse error
+
+script error
 © 2025 Södertörns Muslimska Kultur Förening. Alla rättigheter förbehållna.
